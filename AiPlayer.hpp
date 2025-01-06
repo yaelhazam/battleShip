@@ -1,9 +1,11 @@
 #include <iostream>
 using namespace std;
 #include "Player.hpp"
-class HumanPlayer : public Player
+class AiPlayer : public Player
 {
-    HumanPlayer();
+    AiPlayer();
     void placeAllShips();
     void makeMove();
+    int getRandomCoordinate();
+    ~AiPlayer();
 };
