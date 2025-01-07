@@ -4,7 +4,7 @@ class Grid
 {
     public:
     char* cells[10][10];
-    Grid();//initializes the grid
+    Grid();
     void placeShip(int row, int col, int shipSize, bool horizontal, char symbol)
     bool isTillOccupied(int row, int col);
     bool inBounds(int row, int col, int shipSize, bool horizontal) const

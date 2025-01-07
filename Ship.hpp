@@ -11,6 +11,6 @@ private:
 public:
     Ship(const char *name, int size);
     virtual void takeHit();
-    bool isSunk()const;
+    bool isSunk() const;
     virtual ~Ship();
 };
