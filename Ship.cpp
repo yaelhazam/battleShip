@@ -11,14 +11,14 @@ Ship::Ship(const char *name, int size)
 virtual void takeHit()
 {
     this->hitsTaken++;
-    cout << "Ship" << name << "has been hit!" << endl;
+    cout << "Ship" << this->name << "has been hit!" << endl;
     if (isSunk())
-        cout << "Ship" << name << "has been sunk!" << endl;
+        cout << "Ship" << this->name << "has been sunk!" << endl;
     return;
 }
 bool isSunk() const
 {
-    if (hitsTaken >= size)
+    if (this->hitsTaken >= this->size)
         return true;
     return false;
 }

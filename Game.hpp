@@ -1,7 +1,12 @@
 #include "Player.hpp"
-class Game{
+class Game
+{
 public:
-Player *players[2];
-Game(Player *p1, Player *p2);
-~Game();
+    Player *player1;
+    Player *player2;
+    Game(Player *p1, Player *p2);
+    void setup();
+    void start();
+    bool isGameOver();
+    ~Game();
 };

@@ -11,9 +11,9 @@ private:
 
 public:
     Player(const char *name);
-    virtual ~Player();
     virtual void placeAllShips();
     virtual void makeMove(Player *opponent);
     bool allShipsSunk() const;
-    void displayGrid() ;
+    void displayGrid();
+    virtual ~Player();
 }
