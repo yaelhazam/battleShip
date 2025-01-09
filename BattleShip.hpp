@@ -4,6 +4,6 @@ using namespace std;
 class BattleShip : public Ship
 {
 public:
-    BattleShip();
+    BattleShip():Ship("BattleShit",4){};
     ~BattleShip();
 };

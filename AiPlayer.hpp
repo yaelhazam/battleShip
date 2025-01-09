@@ -1,9 +1,13 @@
 #include <iostream>
-using namespace std;
 #include "Player.hpp"
+using namespace std;
+
 class AiPlayer : public Player
 {
-    AiPlayer();
+public:
+    AiPlayer() : Player("Computer") {};
+
+private:
     void placeAllShips();
     void makeMove();
     int getRandomCoordinate();

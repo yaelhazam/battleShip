@@ -31,7 +31,7 @@ bool Grid::inBounds(int row, int col, int shipSize, bool horizontal) const
         if (col + shipSize > 9)
             return false;
     }
-    if (!horizontal)
+    else
     {
         if (row + shipSize > 9)
             return false;
@@ -45,7 +45,7 @@ void Grid::placeShip(int row, int col, int shipSize, bool horizontal, char symbo
     {
         if (horizontal)
         {
-            if (isTillOccupied([row][col + i]))
+            if (isTillOccupied(row, col + i))
             {
                 occupied = true;
                 break;
@@ -53,7 +53,7 @@ void Grid::placeShip(int row, int col, int shipSize, bool horizontal, char symbo
         }
         else
         {
-            if (isTillOccupied([row + i][col]))
+            if (isTillOccupied(row + i, col))
             {
                 occupied = true;
                 break;
@@ -86,7 +86,7 @@ void Grid::placeShip(int row, int col, int shipSize, bool horizontal, char symbo
         {
             if (horizontal)
             {
-                if (isTillOccupied([row][col + i]))
+                if (isTillOccupied(row, col + i))
                 {
                     occupied = true;
                     break;
@@ -94,7 +94,7 @@ void Grid::placeShip(int row, int col, int shipSize, bool horizontal, char symbo
             }
             else
             {
-                if (isTillOccupied([row + i][col]))
+                if (isTillOccupied(row + i, col))
                 {
                     occupied = true;
                     break;
@@ -104,16 +104,27 @@ void Grid::placeShip(int row, int col, int shipSize, bool horizontal, char symbo
         occupied = false;
     }
 
-    // if all ok
+    for (int i = 0; i < 5; i++)
+    {
+        if (!ships[i].GetIsInit())
+        {
+            ships[i].SetCol(col);
+            ships[i].SetRow(row);
+            ships[i].SetHorizontal(horizontal);
+            ships[i].SetSymbol(symbol);
+            ships[i].SetInit();
+        }
+    }
+
     for (int i = 0; i < shipSize; i++)
     {
         if (horizontal)
         {
-            cells[row][col + i] = symbol;
+            cells[row][col + i] = 'S';
         }
         else
         {
-            cells[row + i][col] = symbol;
+            cells[row + i][col] = 'S';
         }
     }
     return;
@@ -145,12 +156,4 @@ void Grid::printGrid()
 }
 Grid::~Grid()
 {
-    for (int i = 0; i < 10; i++)
-    {
-        for (int j = 0; j < 10; j++)
-        {
-            delete[] cells[i][j];
-        }
-    }
-    delete[] cells;
 }

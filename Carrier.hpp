@@ -4,9 +4,8 @@ using namespace std;
 
 class Carrier : public Ship
 {
-    private:
     public:
-        Carrier();
+        Carrier():Ship("Carrier",5){};
         ~Carrier();
 
 };

@@ -1,4 +1,4 @@
-#endif SUBMARINE_HPP
+#define SUBMARINE_HPP
 #define SUBMARINE_HPP
 #include <iostream>
 using namespace std;
@@ -7,7 +7,6 @@ class Submarime : public Ship
 {
 private:
 public:
-    Submarime();
+    Submarime():Ship("Submarime",3){};
     ~Submarime();
 };
-#endif

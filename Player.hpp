@@ -14,6 +14,7 @@ public:
     virtual void placeAllShips();
     virtual void makeMove(Player *opponent);
     bool allShipsSunk() const;
+    void GetName();
     void displayGrid();
     virtual ~Player();
-}
+};

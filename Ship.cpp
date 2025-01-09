@@ -1,5 +1,6 @@
 #include "Ship.hpp"
 #include <iostream>
+
 Ship::Ship(const char *name, int size)
 {
     this->size = size;
@@ -8,19 +9,23 @@ Ship::Ship(const char *name, int size)
     strcpy(this->name, name);
     delete[] name;
 }
-virtual void takeHit()
+
+void Ship:: takeHit()
 {
     this->hitsTaken++;
-    cout << "Ship" << this->name << "has been hit!" << endl;
+    cout << "Ship" << name << "has been hit!" << endl;
     if (isSunk())
         cout << "Ship" << this->name << "has been sunk!" << endl;
     return;
 }
-bool isSunk() const
+bool Ship:: isSunk() const
 {
     if (this->hitsTaken >= this->size)
         return true;
     return false;
+}
+void Ship::GetName(){
+    cout << this->name << endl;
 }
 Ship::~Ship()
 {

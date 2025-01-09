@@ -3,6 +3,5 @@ using namespace std;
 #include "Ship.hpp"
 class Destroyer:public Ship{
     public:
-    Destroyer();
-    ~Destroyer();
-}
+    Destroyer() : Ship("Destroyer", 2) {};
+};

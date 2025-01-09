@@ -1,4 +1,6 @@
 #include "Game.hpp"
+using namespace std;
+
 Game::Game(Player *p1, Player *p2)
 {
     bool human = false;
@@ -25,30 +27,32 @@ Game::Game(Player *p1, Player *p2)
 
 void Game::setup()
 {
-    p1->placeAllShips();
-    p2->placeAllShips();
+    player1->placeAllShips();
+    player2->placeAllShips();
     start();
 }
 void Game::start()
 {
     while (!isGameOver())
     {
-        p1->makeMove(p2);
-        p2->makeMove(p1);
+        player1->makeMove(player2);
+        player2->makeMove(player1);
     }
-    if (p1->allShipsSunk())
+    if (player1->allShipsSunk())
     {
-        cout << p2->getName() << " wins!" << endl;
+        player2->GetName();
+        cout << " wins!" << endl;
     }
     else
     {
-        cout << p1->getName() << " wins!" << endl;
+        player1->GetName();
+        cout << " wins!" << endl;
     }
     cout << "Game Over (:" << endl;
 }
-bool isGameOver() const
+bool Game::isGameOver() const
 {
-    if (p1->allShipsSunk() || p2->allShipsSunk())
+    if (player1->allShipsSunk() || player2->allShipsSunk())
     {
         return true;
     }

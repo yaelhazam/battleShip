@@ -6,9 +6,9 @@ using namespace std;
 class HumanPlayer : public Player
 {
 public:
-    HumanPlayer();
+    HumanPlayer(): Player("Human Player"){};
     void placeAllShips() override;
-    void makeMove() override;
+    void makeMove(Player *opponent) override;
     ~HumanPlayer();
 };
 #endif

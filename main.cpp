@@ -10,8 +10,8 @@ int main()
 {
     std::srand(static_cast<unsigned int>(std::time(nullptr)));
    
-    Player *p1 = new HumanPlayer("Player 1");
-    Player *p2 = new AiPlayer("Player 2");
+    Player *p1 = new HumanPlayer();
+    Player *p2 = new AiPlayer();
 
     Game game(p1, p2);
 
