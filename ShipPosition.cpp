@@ -10,6 +10,10 @@ ShipPosition::ShipPosition()
 }
 void ShipPosition::SetInit() { this->isInit = true; }
 bool ShipPosition::GetIsInit() { return this->isInit; }
+int ShipPosition::GetRow() { return this->row; }
+int ShipPosition::GetCol() { return this->col; }
+bool ShipPosition::GetHorizontal() { return this->horizontal; }
+char ShipPosition::GetSymbol() { return this->symbol; }
 void ShipPosition::SetCol(int col) { this->col = col; }
 void ShipPosition::SetRow(int row) { this->row = row; }
 void ShipPosition::SetHorizontal(bool horizontal) { this->horizontal = horizontal; }

@@ -129,6 +129,9 @@ void Grid::placeShip(int row, int col, int shipSize, bool horizontal, char symbo
     }
     return;
 }
+ShipPosition* Grid::getPositions(){
+    return ships;
+}
 void Grid::markHit(int row, int col)
 {
     cells[row][col] = 'H';

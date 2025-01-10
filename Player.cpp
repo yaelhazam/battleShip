@@ -1,4 +1,5 @@
 #include "Player.hpp"
+
 Player::Player(const char *name)
 {
     this->playerName = new char[strlen(name) + 1];
@@ -45,7 +46,7 @@ void Player::placeAllShips()
         {
             Symbol = 'C';
         }
-        cout<<"ship -"<<endl;
+        cout << "ship -" << endl;
         ships[i]->GetName();
         cout << " has zise of " << this->ships[i]->GetSize() << "" << endl;
         cout << "Please Enter for row and then column:" << endl;
@@ -76,9 +77,38 @@ void Player::makeMove(Player *opponent)
     row--;
     col--;
 
+    
     if (opponent->grid.getCell(row, col) == 'S')
     {
         opponent->grid.markHit(row, col);
+        for (int i = 0; i < 5; i++)
+        {
+            if ((opponent->grid.getPositions()[i].GetRow() == row)
+                &&(opponent->grid.getPositions()[i].GetRow() == col))
+                {
+                   char symbol = opponent->grid.getPositions()[i].GetSymbol();
+                   if (symbol == 'D')
+                   {
+                       opponent->ships[0]->Hit();                 
+                   }
+                   else if(symbol == 'c')
+                   {
+                       opponent->ships[1]->Hit();
+                   }
+                   else if(symbol == 's')
+                   {
+                       opponent->ships[2]->Hit();
+                   }
+                   else if(symbol == 'B')
+                   {
+                       opponent->ships[3]->Hit();
+                   }
+                   else if(symbol == 'C')
+                   {
+                       opponent->ships[4]->Hit();
+                   }
+                }
+        }
         cout << "Hit!" << endl;
     }
     else
@@ -102,7 +132,7 @@ bool Player ::allShipsSunk() const
     }
     return true;
 }
-void Player::GetName()//
+void Player::GetName()
 {
     cout << this->playerName << endl;
 }
