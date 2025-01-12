@@ -20,46 +20,81 @@ void AiPlayer::placeAllShips()
     int row = 0;
     int col = 0;
 
-    for (int i = 0; i < shipSize; i++)
-    {
-        if (horizontal)
-        {
-            if (isTillOccupied(row, col + i))
-            {
-                occupied = true;
-                break;
-            }
-        }
-        else
-        {
-            if (isTillOccupied(row + i, col))
-            {
-                occupied = true;
-                break;
-            }
-        }
-    }
-
-
     for (int i = 0; i < 5; i++)
     {
         row = getRandomCoordinate();
         col = getRandomCoordinate();
         horizontal = std::rand() % 2;
         while (this->grid.isTillOccupied(row, col) &&
-        !this->grid.inBounds(row, col, this->ships[i]->getSize(), horizontal))
+               !this->grid.inBounds(row, col, this->ships[i]->getSize(), horizontal))
         {
             row = getRandomCoordinate();
             col = getRandomCoordinate();
         }
+        if (i == 0)
+        {
+            Symbol = 'D';
+        }
+        else if (i == 1)
+        {
+            Symbol = 'c';
+        }
+        else if (i == 2)
+        {
+            Symbol = 's';
+        }
+        else if (i == 3)
+        {
+            Symbol = 'B';
+        }
+        else if (i == 4)
+        {
+            Symbol = 'C';
+        }
         this->grid.placeShip(row, col, this->ships[i]->getSize(), horizontal, Symbol);
     }
-
 }
 
 void AiPlayer::makeMove()
 {
-    
+    int row = getRandomCoordinate();
+    int col = getRandomCoordinate();
+
+    if (this->grid.getCell(row, col) == '~')
+    {
+        this->grid.markMiss(row, col);
+        return;
+    }
+    else if (this->grid.getCell(row, col) == 'S')
+    {
+        this->grid.markHit(row, col);
+        return;
+    }
+    if ((opponent->grid.getPositions()[i].GetRow() == row) && (opponent->grid.getPositions()[i].GetRow() == col))
+    {
+        char symbol = opponent->grid.getPositions()[i].GetSymbol();
+        if (symbol == 'D')
+        {
+            opponent->ships[0]->Hit();
+        }
+        else if (symbol == 'c')
+        {
+            opponent->ships[1]->Hit();
+        }
+        else if (symbol == 's')
+        {
+            opponent->ships[2]->Hit();
+        }
+        else if (symbol == 'B')
+        {
+            opponent->ships[3]->Hit();
+        }
+        else if (symbol == 'C')
+        {
+            opponent->ships[4]->Hit();
+        }
+    }
+    this->grid.printGrid();
 }
 
 int AiPlayer::getRandomCoordinate()

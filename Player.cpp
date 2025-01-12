@@ -1,4 +1,6 @@
 #include "Player.hpp"
+#include <iostream>
+using namespace std;
 
 Player::Player(const char *name)
 {
@@ -13,7 +15,6 @@ void Player::placeAllShips()
     this->ships[3] = new Battleship();
     this->ships[4] = new Carrier();
 
-    int count = 0;
     bool horizontal = false;
     char Symbol = ' ';
     int row = 0;

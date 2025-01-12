@@ -8,7 +8,7 @@ public:
     AiPlayer() : Player("Computer") {};
 
 private:
-    void placeAllShips();
+    void placeAllShips() override;
     void makeMove();
     int getRandomCoordinate();
     ~AiPlayer();
