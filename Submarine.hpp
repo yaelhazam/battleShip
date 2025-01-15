@@ -3,10 +3,10 @@
 #include <iostream>
 using namespace std;
 #include "Ship.hpp"
-class Submarime : public Ship
+class Submarine : public Ship
 {
 private:
 public:
-    Submarime():Ship("Submarime",3){};
-    ~Submarime();
+    Submarine():Ship("Submarime",3){};
+    ~Submarine();
 };

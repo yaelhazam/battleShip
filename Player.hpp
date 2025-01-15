@@ -1,6 +1,11 @@
 #include <iostream>
 #include "Ship.hpp"
 #include "Grid.hpp"
+#include "Destroyer.hpp"
+#include "Cruiser.hpp"
+#include "Carrier.hpp"
+#include "Submarine.hpp"
+#include "BattleShip.hpp"
 using namespace std;
 class Player
 {

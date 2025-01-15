@@ -12,7 +12,7 @@ void Player::placeAllShips()
     this->ships[0] = new Destroyer();
     this->ships[1] = new Cruiser();
     this->ships[2] = new Submarine();
-    this->ships[3] = new Battleship();
+    this->ships[3] = new BattleShip();
     this->ships[4] = new Carrier();
 
     bool horizontal = false;
@@ -78,37 +78,35 @@ void Player::makeMove(Player *opponent)
     row--;
     col--;
 
-    
     if (opponent->grid.getCell(row, col) == 'S')
     {
         opponent->grid.markHit(row, col);
         for (int i = 0; i < 5; i++)
         {
-            if ((opponent->grid.getPositions()[i].GetRow() == row)
-                &&(opponent->grid.getPositions()[i].GetRow() == col))
+            if ((opponent->grid.getPositions()[i].GetRow() == row) && (opponent->grid.getPositions()[i].GetRow() == col))
+            {
+                char symbol = opponent->grid.getPositions()[i].GetSymbol();
+                if (symbol == 'D')
                 {
-                   char symbol = opponent->grid.getPositions()[i].GetSymbol();
-                   if (symbol == 'D')
-                   {
-                       opponent->ships[0]->Hit();                 
-                   }
-                   else if(symbol == 'c')
-                   {
-                       opponent->ships[1]->Hit();
-                   }
-                   else if(symbol == 's')
-                   {
-                       opponent->ships[2]->Hit();
-                   }
-                   else if(symbol == 'B')
-                   {
-                       opponent->ships[3]->Hit();
-                   }
-                   else if(symbol == 'C')
-                   {
-                       opponent->ships[4]->Hit();
-                   }
+                    opponent->ships[0]->takeHit();
                 }
+                else if (symbol == 'c')
+                {
+                    opponent->ships[1]->takeHit();
+                }
+                else if (symbol == 's')
+                {
+                    opponent->ships[2]->takeHit();
+                }
+                else if (symbol == 'B')
+                {
+                    opponent->ships[3]->takeHit();
+                }
+                else if (symbol == 'C')
+                {
+                    opponent->ships[4]->takeHit();
+                }
+            }
         }
         cout << "Hit!" << endl;
     }

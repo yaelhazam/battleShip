@@ -1,4 +1,5 @@
 
+#include 'Ship.hpp'
 class ShipPosition
 {
 private:

@@ -1,10 +1,10 @@
 #include <iostream>
 #include <string.h>
-#include "Destroyer.hpp"
-#include "Cruiser.hpp"
-#include "Carrier.hpp"
-#include "Submarine.hpp"
-#include "Battleship.hpp"
+//#include "Destroyer.hpp"
+//#include "Cruiser.hpp"
+//#include "Carrier.hpp"
+//#include "Submarine.hpp"
+//#include "Battleship.hpp"
 using namespace std;
 class Ship
 {
