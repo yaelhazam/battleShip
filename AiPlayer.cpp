@@ -78,28 +78,28 @@ void AiPlayer::makeMove(Player *opponent)
     {
         this->grid.markHit(row, col);
      for(int i = 0; i < 5; i++){
-        if ((opponent->grid.getPositions()[i].GetRow() == row) && (opponent->grid.getPositions()[i].GetRow() == col))
+        if ((opponent->GetGrid().getPositions()[i].GetRow() == row) && (opponent->GetGrid().getPositions()[i].GetRow() == col))
         {
-            char symbol = opponent->grid.getPositions()[i].GetSymbol();
+            char symbol = opponent->GetGrid().getPositions()[i].GetSymbol();
             if (symbol == 'D')
             {
-                opponent->ships[0]->Hit();
+                opponent->getShip(0)->takeHit();
             }
             else if (symbol == 'c')
             {
-                opponent->ships[1]->Hit();
+                opponent->getShip(1)->takeHit();
             }
             else if (symbol == 's')
             {
-                opponent->ships[2]->Hit();
+                opponent->getShip(2)->takeHit();
             }
             else if (symbol == 'B')
             {
-                opponent->ships[3]->Hit();
+                opponent->getShip(3)->takeHit();
             }
             else if (symbol == 'C')
             {
-                opponent->ships[4]->Hit();
+                opponent->getShip(4)->takeHit();
             }
         }
      }

@@ -23,6 +23,8 @@ public:
     bool allShipsSunk() const;
     void GetName();
     void SetShip(Ship *ship);
+    Grid GetGrid();
+    Ship *getShip(int i);
     void displayGrid();
     virtual ~Player();
 };

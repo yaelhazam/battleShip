@@ -11,7 +11,7 @@ public:
 
 private:
     void placeAllShips() override;
-    void makeMove(Player *opponent);
+    void makeMove(Player *opponent) override;
     int getRandomCoordinate();
     ~AiPlayer();
 };

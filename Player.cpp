@@ -119,7 +119,18 @@ void Player::makeMove(Player *opponent)
     opponent->grid.printGrid();
     return;
 }
-
+Grid Player::GetGrid()
+{
+    return this->grid;
+}
+Ship *Player::getShip(int i)
+{
+    if (i >= 0 && i < 5)
+    {
+        return this->ships[i];
+    }
+    return nullptr;
+}
 bool Player ::allShipsSunk() const
 {
     for (int i = 0; i < 5; i++)
@@ -142,5 +153,4 @@ Player::~Player()
     {
         delete this->ships[i];
     }
-    delete[] this->ships;
 }
