@@ -1,3 +1,5 @@
+#ifndef AIPLAYER_HPP
+#define AIPLAYER_HPP
 #include <iostream>
 #include "Player.hpp"
 using namespace std;
@@ -9,7 +11,9 @@ public:
 
 private:
     void placeAllShips() override;
-    void makeMove();
+    void makeMove(Player *opponent);
     int getRandomCoordinate();
     ~AiPlayer();
 };
+
+#endif

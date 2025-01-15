@@ -1,3 +1,5 @@
+#ifndef GAME_HPP
+#define GAME_HPP
 #include "Player.hpp"
 #include "HumanPlayer.hpp"
 #include "AiPlayer.hpp"
@@ -14,3 +16,5 @@ public:
     bool isGameOver() const;
     ~Game();
 };
+
+#endif

@@ -83,7 +83,7 @@ void Player::makeMove(Player *opponent)
         opponent->grid.markHit(row, col);
         for (int i = 0; i < 5; i++)
         {
-            if ((opponent->grid.getPositions()[i].GetRow() == row) && (opponent->grid.getPositions()[i].GetRow() == col))
+            if ((opponent->grid.getPositions()[i].GetRow() == row) && (opponent->grid.getPositions()[i].GetCol() == col))
             {
                 char symbol = opponent->grid.getPositions()[i].GetSymbol();
                 if (symbol == 'D')

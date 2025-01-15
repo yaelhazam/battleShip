@@ -1,3 +1,5 @@
+#ifndef PLAYER_HPP
+#define PLAYER_HPP
 #include <iostream>
 #include "Ship.hpp"
 #include "Grid.hpp"
@@ -9,7 +11,7 @@
 using namespace std;
 class Player
 {
-private:
+protected:
     char *playerName;
     Ship *ships[5];
     Grid grid;
@@ -20,6 +22,9 @@ public:
     virtual void makeMove(Player *opponent);
     bool allShipsSunk() const;
     void GetName();
+    void SetShip(Ship *ship);
     void displayGrid();
     virtual ~Player();
 };
+
+#endif

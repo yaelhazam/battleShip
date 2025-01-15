@@ -1,5 +1,6 @@
-
-#include 'Ship.hpp'
+#ifndef SHIPPOSITION_HPP
+#define SHIPPOSITION_HPP
+#include "Ship.hpp"
 class ShipPosition
 {
 private:
@@ -23,4 +24,5 @@ public:
     void SetSymbol(char symbol);
     ~ShipPosition();
 };
-#
+
+#endif

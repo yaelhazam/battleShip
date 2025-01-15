@@ -1,14 +1,11 @@
+#ifndef SHIP_HPP
+#define SHIP_HPP
 #include <iostream>
 #include <string.h>
-//#include "Destroyer.hpp"
-//#include "Cruiser.hpp"
-//#include "Carrier.hpp"
-//#include "Submarine.hpp"
-//#include "Battleship.hpp"
 using namespace std;
 class Ship
 {
-private:
+protected:
     char *name;
     int size;
     int hitsTaken;
@@ -22,3 +19,5 @@ public:
     bool isSunk() const;
     virtual ~Ship();
 };
+
+#endif

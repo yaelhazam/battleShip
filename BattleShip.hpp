@@ -1,3 +1,5 @@
+#ifndef BATTLESHIP_HPP
+#define BATTLESHIP_HPP
 #include <iostream>
 using namespace std;
 #include "Ship.hpp"
@@ -7,3 +9,5 @@ public:
     BattleShip() : Ship("BattleShip", 4) {};
     ~BattleShip();
 };
+
+#endif

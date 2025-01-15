@@ -1,4 +1,4 @@
-#define SUBMARINE_HPP
+#ifndef SUBMARINE_HPP
 #define SUBMARINE_HPP
 #include <iostream>
 using namespace std;
@@ -10,3 +10,5 @@ public:
     Submarine():Ship("Submarime",3){};
     ~Submarine();
 };
+
+#endif

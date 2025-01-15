@@ -1,3 +1,5 @@
+#ifndef CRUISER_HPP
+#define CRUISER_HPP
 #include <iostream>
 using namespace std;
 #include "Ship.hpp"
@@ -9,3 +11,5 @@ public:
     Cruiser():Ship("Cruiser",3){};
     ~Cruiser();
 };
+
+#endif
