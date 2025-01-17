@@ -13,10 +13,10 @@ private:
 public:
     ShipPosition();
     void SetRow(int row);
-    int ShipPosition::GetRow();
-    int ShipPosition::GetCol();
-    bool ShipPosition::GetHorizontal();
-    char ShipPosition::GetSymbol();
+    int GetRow();
+    int GetCol();
+    bool GetHorizontal();
+    char GetSymbol();
     void SetInit();
     bool GetIsInit();
     void SetCol(int col);
