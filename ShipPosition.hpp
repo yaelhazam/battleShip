@@ -1,14 +1,14 @@
 #ifndef SHIPPOSITION_HPP
 #define SHIPPOSITION_HPP
-#include "Ship.hpp"
+
 class ShipPosition
 {
 private:
-    int row;
-    int col;
-    bool horizontal;
-    char symbol;
-    bool isInit;
+   int row = 0;
+    int col = 0;
+    bool horizontal = false;
+    char symbol = ' ';
+    bool isInit = false;
 
 public:
     ShipPosition();
@@ -22,7 +22,7 @@ public:
     void SetCol(int col);
     void SetHorizontal(bool horizontal);
     void SetSymbol(char symbol);
-    ~ShipPosition();
+    ~ShipPosition() = default;
 };
 
 #endif

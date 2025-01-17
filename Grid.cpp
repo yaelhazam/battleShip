@@ -9,6 +9,30 @@ Grid::Grid()
         }
     }
 }
+bool Grid::isAdjacentOccupied(int row, int col, int shipSize, bool horizontal)
+{
+    for (int i = -1; i <= 1; i++)
+    {
+        for (int j = -1; j <= 1; j++)
+        {
+            for (int k = 0; k < shipSize; k++)
+            {
+                int checkRow = horizontal ? row + i : row + k + i;
+                int checkCol = horizontal ? col + k + j : col + j;
+
+                if (checkRow >= 0 && checkRow < 10 && checkCol >= 0 && checkCol < 10)
+                {
+                    if (cells[checkRow][checkCol] == 'S')
+                    {
+                        return true;
+                    }
+                }
+            }
+        }
+    }
+    return false;
+}
+
 bool Grid::isTillOccupied(int row, int col)
 {
     if (row < 0 || row > 9 || col < 0 || col > 9)
@@ -61,7 +85,7 @@ void Grid::placeShip(int row, int col, int shipSize, bool horizontal, char symbo
         }
     }
 
-    while (occupied || !inBounds(row, col, shipSize, horizontal))
+    while (occupied || !inBounds(row, col, shipSize, horizontal) || isAdjacentOccupied(row, col, shipSize, horizontal))
     {
         if (!inBounds(row, col, shipSize, horizontal))
         {
@@ -77,6 +101,14 @@ void Grid::placeShip(int row, int col, int shipSize, bool horizontal, char symbo
         else if (occupied)
         {
             cout << "These coordinates are occupied" << endl;
+            cout << "Enter for row and then column:" << endl;
+            cin >> row >> col;
+            row--;
+            col--;
+        }
+        else if (isAdjacentOccupied(row, col, shipSize, horizontal))
+        {
+            cout << "These coordinates are adjacent to another ship" << endl;
             cout << "Enter for row and then column:" << endl;
             cin >> row >> col;
             row--;
@@ -113,6 +145,7 @@ void Grid::placeShip(int row, int col, int shipSize, bool horizontal, char symbo
             ships[i].SetHorizontal(horizontal);
             ships[i].SetSymbol(symbol);
             ships[i].SetInit();
+            break;
         }
     }
 
@@ -129,7 +162,8 @@ void Grid::placeShip(int row, int col, int shipSize, bool horizontal, char symbo
     }
     return;
 }
-ShipPosition* Grid::getPositions(){
+ShipPosition *Grid::getPositions()
+{
     return ships;
 }
 void Grid::markHit(int row, int col)
@@ -148,15 +182,32 @@ char Grid::getCell(int row, int col) const
 }
 void Grid::printGrid()
 {
+    cout << "   A B C D E F G H I J" << endl;
     for (int i = 0; i < 10; i++)
     {
+        cout << (i + 1) << (i < 9 ? "  " : " ");
         for (int j = 0; j < 10; j++)
         {
-            cout << cells[i][j] << " ";
+            switch (cells[i][j])
+            {
+            case '~':
+                cout << "🌊 ";
+                break;
+            case 'S':
+                cout << "🌊 ";
+            case 'H':
+                cout << "🔥 ";
+                break;
+            case 'M':
+                cout << "💦 ";
+                break;
+            default:
+                cout << cells[i][j] << " ";
+                break;
+            }
         }
         cout << endl;
     }
-}
-Grid::~Grid()
-{
+    cout << "\nLegend:" << endl;
+    cout << "🌊 - Water, 🔥 - Hit, 🚫 - Miss, 🚢 - Ship (only visible in debug mode)" << endl;
 }

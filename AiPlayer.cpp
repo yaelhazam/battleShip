@@ -16,7 +16,7 @@ void AiPlayer::placeAllShips()
     this->ships[4] = new Carrier();
 
     bool horizontal = false;
-    char Symbol = 'S';
+    char Symbol = ' ';
     int row = 0;
     int col = 0;
 
@@ -69,40 +69,52 @@ void AiPlayer::makeMove(Player *opponent)
     row--;
     col--;
 
+    if (this->grid.getCell(row, col) == 'M' || this->grid.getCell(row, col) == 'H')
+    {
+        while (row > 10 || row < 1 || col > 10 || col < 1)
+        {
+            row = getRandomCoordinate();
+            col = getRandomCoordinate();
+        }
+    }
+
     if (this->grid.getCell(row, col) == '~')
     {
         this->grid.markMiss(row, col);
+        cout << "You missed!" << endl;
         return;
     }
+
     if (this->grid.getCell(row, col) == 'S')
     {
         this->grid.markHit(row, col);
-     for(int i = 0; i < 5; i++){
-        if ((opponent->GetGrid().getPositions()[i].GetRow() == row) && (opponent->GetGrid().getPositions()[i].GetRow() == col))
+        for (int i = 0; i < 5; i++)
         {
-            char symbol = opponent->GetGrid().getPositions()[i].GetSymbol();
-            if (symbol == 'D')
+            if ((opponent->GetGrid().getPositions()[i].GetRow() == row) && (opponent->GetGrid().getPositions()[i].GetRow() == col))
             {
-                opponent->getShip(0)->takeHit();
-            }
-            else if (symbol == 'c')
-            {
-                opponent->getShip(1)->takeHit();
-            }
-            else if (symbol == 's')
-            {
-                opponent->getShip(2)->takeHit();
-            }
-            else if (symbol == 'B')
-            {
-                opponent->getShip(3)->takeHit();
-            }
-            else if (symbol == 'C')
-            {
-                opponent->getShip(4)->takeHit();
+                char symbol = opponent->GetGrid().getPositions()[i].GetSymbol();
+                if (symbol == 'D')
+                {
+                    opponent->getShip(0)->takeHit();
+                }
+                else if (symbol == 'c')
+                {
+                    opponent->getShip(1)->takeHit();
+                }
+                else if (symbol == 's')
+                {
+                    opponent->getShip(2)->takeHit();
+                }
+                else if (symbol == 'B')
+                {
+                    opponent->getShip(3)->takeHit();
+                }
+                else if (symbol == 'C')
+                {
+                    opponent->getShip(4)->takeHit();
+                }
             }
         }
-     }
     }
     this->grid.printGrid();
 }

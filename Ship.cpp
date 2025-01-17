@@ -4,17 +4,25 @@
 Ship::Ship(const char *name, int size)
 {
     this->size = size;
-    this->hitsTaken = 0;
     this->name = new char[strlen(name) + 1];
     strcpy(this->name, name);
+}
+
+int Ship::GetSize()
+{
+    return this->size;
+}
+int Ship::GetHitsTaken()
+{
+    return this->hitsTaken;
 }
 
 void Ship:: takeHit()
 {
     this->hitsTaken++;
-    cout << "Ship" << name << "has been hit!" << endl;
+    cout << "Ship " << name << " has been hit!" << endl;
     if (isSunk())
-        cout << "Ship" << this->name << "has been sunk!" << endl;
+        cout << "Ship " << this->name << " has been sunk!" << endl;
     return;
 }
 bool Ship:: isSunk() const

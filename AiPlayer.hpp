@@ -8,12 +8,9 @@ class AiPlayer : public Player
 {
 public:
     AiPlayer() : Player("Computer") {};
-
-private:
     void placeAllShips() override;
     void makeMove(Player *opponent) override;
     int getRandomCoordinate();
-    ~AiPlayer();
 };
 
 #endif

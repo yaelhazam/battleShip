@@ -11,8 +11,3 @@ void HumanPlayer::makeMove(Player *opponent)
 {
     Player::makeMove(opponent);
 }
-
-HumanPlayer::~HumanPlayer()
-{
-
-}

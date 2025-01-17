@@ -9,6 +9,5 @@ public:
     HumanPlayer(): Player("Human Player"){};
     void placeAllShips() override;
     void makeMove(Player *opponent) override;
-    ~HumanPlayer();
 };
 #endif

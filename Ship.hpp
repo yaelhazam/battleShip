@@ -7,8 +7,8 @@ class Ship
 {
 protected:
     char *name;
-    int size;
-    int hitsTaken;
+    int size=0;
+    int hitsTaken=0;
 
 public:
     Ship(const char *name, int size);

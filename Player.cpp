@@ -61,7 +61,7 @@ void Player::placeAllShips()
 }
 void Player::makeMove(Player *opponent)
 {
-    cout << "Please Enter for row and then column:" << endl;
+    cout << "Invalid input. Row and column must be between 1 and 10. Please try again:" << endl;
     int row;
     int col;
     cin >> row >> col;
@@ -70,7 +70,7 @@ void Player::makeMove(Player *opponent)
         cout << "Out of bounds" << endl;
         while (row < 1 || row > 10 || col < 1 || col > 10)
         {
-            cout << "Please Enter for row and then column:" << endl;
+            cout << "Invalid input. Row and column must be between 1 and 10. Please try again:" << endl;
             cin >> row >> col;
         }
     }
@@ -89,22 +89,27 @@ void Player::makeMove(Player *opponent)
                 if (symbol == 'D')
                 {
                     opponent->ships[0]->takeHit();
+                    break;
                 }
                 else if (symbol == 'c')
                 {
                     opponent->ships[1]->takeHit();
+                    break;
                 }
                 else if (symbol == 's')
                 {
                     opponent->ships[2]->takeHit();
+                    break;
                 }
                 else if (symbol == 'B')
                 {
                     opponent->ships[3]->takeHit();
+                    break;
                 }
                 else if (symbol == 'C')
                 {
                     opponent->ships[4]->takeHit();
+                    break;
                 }
             }
         }
@@ -119,13 +124,13 @@ void Player::makeMove(Player *opponent)
     opponent->grid.printGrid();
     return;
 }
-Grid Player::GetGrid()
+Grid& Player::GetGrid()
 {
     return this->grid;
 }
 Ship *Player::getShip(int i)
 {
-    if (i >= 0 && i < 5)
+    if (i >= 0 && i < 5 && ships[i] != nullptr)
     {
         return this->ships[i];
     }
