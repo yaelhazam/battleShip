@@ -12,7 +12,7 @@ private:
 public:
     Grid();
     ShipPosition *getPositions();
-    bool Grid::isAdjacentOccupied(int row, int col, int shipSize, bool horizontal);
+    bool isAdjacentOccupied(int row, int col, int shipSize, bool horizontal);
     void placeShip(int row, int col, int shipSize, bool horizontal, char symbol);
     bool isTillOccupied(int row, int col);
     bool inBounds(int row, int col, int shipSize, bool horizontal) const;

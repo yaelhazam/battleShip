@@ -15,45 +15,39 @@ void AiPlayer::placeAllShips()
     this->ships[3] = new BattleShip();
     this->ships[4] = new Carrier();
 
-    bool horizontal = false;
-    char Symbol = ' ';
-    int row = 0;
-    int col = 0;
+    bool horizontal;
+    char Symbol;
+    int row, col;
 
     for (int i = 0; i < 5; i++)
     {
-        row = getRandomCoordinate();
-        col = getRandomCoordinate();
-        horizontal = std::rand() % 2;
-        while (this->grid.isTillOccupied(row, col) &&
-               !this->grid.inBounds(row, col, this->ships[i]->GetSize(), horizontal))
+        Symbol = 'S'; 
+        bool placed = false;
+
+        while (!placed)
         {
             row = getRandomCoordinate();
             col = getRandomCoordinate();
-            horizontal = std::rand() % 2;
+            horizontal = (std::rand() % 2 == 0);
+
+            cout << "AI trying to place ship " << ships[i]->GetSize() 
+                 << " cells at row " << row + 1 << ", col " << col + 1 
+                 << " (horizontal: " << horizontal << ")" << endl;
+
+            if (!grid.isAdjacentOccupied(row, col, ships[i]->GetSize(), horizontal) &&
+                grid.inBounds(row, col, ships[i]->GetSize(), horizontal) &&
+                !grid.isTillOccupied(row, col))
+            {
+                grid.placeShip(row, col, ships[i]->GetSize(), horizontal, Symbol);
+                placed = true;
+
+                cout << "AI placed ship at row " << row + 1 << ", col " 
+                     << col + 1 << endl;
+            }
         }
-        if (i == 0)
-        {
-            Symbol = 'D';
-        }
-        else if (i == 1)
-        {
-            Symbol = 'c';
-        }
-        else if (i == 2)
-        {
-            Symbol = 's';
-        }
-        else if (i == 3)
-        {
-            Symbol = 'B';
-        }
-        else if (i == 4)
-        {
-            Symbol = 'C';
-        }
-        this->grid.placeShip(row, col, this->ships[i]->GetSize(), horizontal, Symbol);
     }
+
+    cout << "AI placement completed!" << endl;
 }
 
 void AiPlayer::makeMove(Player *opponent)
@@ -69,7 +63,7 @@ void AiPlayer::makeMove(Player *opponent)
     row--;
     col--;
 
-    if (this->grid.getCell(row, col) == 'M' || this->grid.getCell(row, col) == 'H')
+    if (opponent->GetGrid().getCell(row, col) == 'M' || opponent->GetGrid().getCell(row, col) == 'H')
     {
         while (row > 10 || row < 1 || col > 10 || col < 1)
         {
@@ -78,16 +72,16 @@ void AiPlayer::makeMove(Player *opponent)
         }
     }
 
-    if (this->grid.getCell(row, col) == '~')
+    if (opponent->GetGrid().getCell(row, col) == '~')
     {
-        this->grid.markMiss(row, col);
+        opponent->GetGrid().markMiss(row, col);
         cout << "You missed!" << endl;
         return;
     }
 
-    if (this->grid.getCell(row, col) == 'S')
+    if (opponent->GetGrid().getCell(row, col) == 'S')
     {
-        this->grid.markHit(row, col);
+        opponent->GetGrid().markHit(row, col);
         for (int i = 0; i < 5; i++)
         {
             if ((opponent->GetGrid().getPositions()[i].GetRow() == row) && (opponent->GetGrid().getPositions()[i].GetRow() == col))

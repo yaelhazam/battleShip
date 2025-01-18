@@ -1,4 +1,5 @@
 #include "Grid.hpp"
+#include <limits>
 Grid::Grid()
 {
     for (int i = 0; i < 10; i++)
@@ -35,11 +36,6 @@ bool Grid::isAdjacentOccupied(int row, int col, int shipSize, bool horizontal)
 
 bool Grid::isTillOccupied(int row, int col)
 {
-    if (row < 0 || row > 9 || col < 0 || col > 9)
-    {
-        cout << "Out of bounds" << endl;
-        return true;
-    }
     if (cells[row][col] == 'S' || cells[row][col] == 'X')
     {
         return true;
@@ -64,89 +60,22 @@ bool Grid::inBounds(int row, int col, int shipSize, bool horizontal) const
 }
 void Grid::placeShip(int row, int col, int shipSize, bool horizontal, char symbol)
 {
-    bool occupied = false;
-    for (int i = 0; i < shipSize; i++)
+    while (isAdjacentOccupied(row, col, shipSize, horizontal) ||
+           !inBounds(row, col, shipSize, horizontal) ||
+           isTillOccupied(row, col))
     {
-        if (horizontal)
+        cout << "Invalid placement, please try again (row and column between 1-10):" << endl;
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        while (!(cin >> row >> col) || row < 1 || row > 10 || col < 1 || col > 10)
         {
-            if (isTillOccupied(row, col + i))
-            {
-                occupied = true;
-                break;
-            }
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Invalid input. Please enter row and column between 1-10:" << endl;
         }
-        else
-        {
-            if (isTillOccupied(row + i, col))
-            {
-                occupied = true;
-                break;
-            }
-        }
-    }
 
-    while (occupied || !inBounds(row, col, shipSize, horizontal) || isAdjacentOccupied(row, col, shipSize, horizontal))
-    {
-        if (!inBounds(row, col, shipSize, horizontal))
-        {
-            while (!inBounds(row, col, shipSize, horizontal))
-            {
-                cout << "These coordinates are not in bounds" << endl;
-                cout << "Enter for row and then column:" << endl;
-                cin >> row >> col;
-                row--;
-                col--;
-            }
-        }
-        else if (occupied)
-        {
-            cout << "These coordinates are occupied" << endl;
-            cout << "Enter for row and then column:" << endl;
-            cin >> row >> col;
-            row--;
-            col--;
-        }
-        else if (isAdjacentOccupied(row, col, shipSize, horizontal))
-        {
-            cout << "These coordinates are adjacent to another ship" << endl;
-            cout << "Enter for row and then column:" << endl;
-            cin >> row >> col;
-            row--;
-            col--;
-        }
-        for (int i = 0; i < shipSize; i++)
-        {
-            if (horizontal)
-            {
-                if (isTillOccupied(row, col + i))
-                {
-                    occupied = true;
-                    break;
-                }
-            }
-            else
-            {
-                if (isTillOccupied(row + i, col))
-                {
-                    occupied = true;
-                    break;
-                }
-            }
-        }
-        occupied = false;
-    }
-
-    for (int i = 0; i < 5; i++)
-    {
-        if (!ships[i].GetIsInit())
-        {
-            ships[i].SetCol(col);
-            ships[i].SetRow(row);
-            ships[i].SetHorizontal(horizontal);
-            ships[i].SetSymbol(symbol);
-            ships[i].SetInit();
-            break;
-        }
+        row--;
+        col--;
     }
 
     for (int i = 0; i < shipSize; i++)
@@ -160,8 +89,24 @@ void Grid::placeShip(int row, int col, int shipSize, bool horizontal, char symbo
             cells[row + i][col] = 'S';
         }
     }
-    return;
+
+    for (int i = 0; i < 5; i++)
+    {
+        if (!ships[i].GetIsInit())
+        {
+            ships[i].SetCol(col);
+            ships[i].SetRow(row);
+            ships[i].SetHorizontal(horizontal);
+            ships[i].SetSymbol(symbol);
+            ships[i].SetInit();
+            if(i==4){
+                cout<<"All ships have been placed!"<<endl;
+            }
+            break;
+        }
+    }
 }
+
 ShipPosition *Grid::getPositions()
 {
     return ships;
@@ -188,26 +133,9 @@ void Grid::printGrid()
         cout << (i + 1) << (i < 9 ? "  " : " ");
         for (int j = 0; j < 10; j++)
         {
-            switch (cells[i][j])
-            {
-            case '~':
-                cout << "🌊 ";
-                break;
-            case 'S':
-                cout << "🌊 ";
-            case 'H':
-                cout << "🔥 ";
-                break;
-            case 'M':
-                cout << "💦 ";
-                break;
-            default:
-                cout << cells[i][j] << " ";
-                break;
-            }
+            cout << cells[i][j] << " ";
         }
+
         cout << endl;
     }
-    cout << "\nLegend:" << endl;
-    cout << "🌊 - Water, 🔥 - Hit, 🚫 - Miss, 🚢 - Ship (only visible in debug mode)" << endl;
 }

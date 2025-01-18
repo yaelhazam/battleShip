@@ -15,10 +15,10 @@ Game::Game(Player *p1, Player *p2)
     {
         ai = true;
     }
-   if (!(human && ai))
-{
-    throw std::invalid_argument("There needs to be a human player and an AI player.");
-}
+    if (!(human && ai))
+    {
+        throw std::invalid_argument("There needs to be a human player and an AI player.");
+    }
 
     player1 = p1;
     player2 = p2;
@@ -35,10 +35,12 @@ void Game::start()
     while (!isGameOver())
     {
         player1->makeMove(player2);
-        if(isGameOver())
+        if (isGameOver())
             break;
+
         player2->makeMove(player1);
     }
+
     if (player1->allShipsSunk())
     {
         player2->GetName();
@@ -49,7 +51,7 @@ void Game::start()
         player1->GetName();
         cout << " wins!" << endl;
     }
-    cout << "Game Over (:" << endl;
+    cout << "Game Over!" << endl;
 }
 bool Game::isGameOver() const
 {
