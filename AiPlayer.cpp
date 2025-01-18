@@ -76,12 +76,14 @@ void AiPlayer::makeMove(Player *opponent)
     {
         opponent->GetGrid().markMiss(row, col);
         cout << "You missed!" << endl;
+        opponent->GetGrid().printGrid();
         return;
     }
 
     if (opponent->GetGrid().getCell(row, col) == 'S')
     {
         opponent->GetGrid().markHit(row, col);
+        cout << "You hit an enemy ship!" << endl;
         for (int i = 0; i < 5; i++)
         {
             if ((opponent->GetGrid().getPositions()[i].GetRow() == row) && (opponent->GetGrid().getPositions()[i].GetRow() == col))
@@ -107,10 +109,10 @@ void AiPlayer::makeMove(Player *opponent)
                 {
                     opponent->getShip(4)->takeHit();
                 }
+                opponent->GetGrid().printGrid();
             }
         }
     }
-    this->grid.printGrid();
 }
 
 int AiPlayer::getRandomCoordinate()

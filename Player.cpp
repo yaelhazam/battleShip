@@ -73,7 +73,7 @@ void Player::makeMove(Player *opponent)
     cin >> row >> col;
     row--;
     col--;
-    while (this->grid.inBounds(row, col, 1, true) == false)
+    while (row < 0 || row > 9 || col < 0 || col > 9)
     {
         cout << "Invalid input, please try again (row and column between 1-10):" << endl;
         cin.clear();
@@ -135,7 +135,6 @@ void Player::makeMove(Player *opponent)
         opponent->grid.markMiss(row, col);
         cout << "Miss!" << endl;
     }
-    this->grid.printGrid();
     opponent->grid.printGrid();
     return;
 }
