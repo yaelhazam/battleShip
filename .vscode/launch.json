@@ -1,0 +1,24 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug",
+            "type": "cppvsdbg", // "cppdbg" for GDB/LLDB, "cppvsdbg" for Windows Visual Studio debugger
+            "request": "launch",
+            "program": "C:\\Users\\Lenovo\\Documents\\battleShip\\battleship_game.exe",
+            "args": [
+                // "--disable-web-security",
+                // "--disable-site-isolation-trials",
+                //"--user-data-dir=C:\\Users\\adirm\\AppData\\Local\\Temp\\adir_see\\1",
+                //"--user-data-dir=D:\\automation\\tmp\\profile_5b5309d5e908decb927259be6927fbf6_1",
+                // "--remote-debugging-port=9222",
+            ], // Optional command line args
+            "stopAtEntry": true,
+            "cwd": "C:\\Users\\Lenovo\\Documents\\battleShip",
+           
+        }
+    ]
+}
