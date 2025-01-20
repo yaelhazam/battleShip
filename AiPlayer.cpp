@@ -6,6 +6,8 @@
 #include <vector>
 #include <algorithm>
 #include <random>
+using namespace std;
+
 
 void AiPlayer::placeAllShips()
 {
@@ -21,7 +23,7 @@ void AiPlayer::placeAllShips()
 
     for (int i = 0; i < 5; i++)
     {
-        Symbol = 'S'; 
+        Symbol = 'S';
         bool placed = false;
 
         while (!placed)
@@ -29,10 +31,14 @@ void AiPlayer::placeAllShips()
             row = getRandomCoordinate();
             col = getRandomCoordinate();
             horizontal = (std::rand() % 2 == 0);
-
-            cout << "AI trying to place ship " << ships[i]->GetSize() 
-                 << " cells at row " << row + 1 << ", col " << col + 1 
-                 << " (horizontal: " << horizontal << ")" << endl;
+            int direction = 0;
+            if (horizontal)
+            {
+                direction = 1;
+            }
+            //cout << "AI trying to place ship " << ships[i]->GetSize()
+            //     << " cells at row " << row + 1 << ", col " << col + 1
+            //    << " (horizontal: " << horizontal << ")" << endl; //for debbuging
 
             if (!grid.isAdjacentOccupied(row, col, ships[i]->GetSize(), horizontal) &&
                 grid.inBounds(row, col, ships[i]->GetSize(), horizontal) &&
@@ -40,13 +46,15 @@ void AiPlayer::placeAllShips()
             {
                 grid.placeShip(row, col, ships[i]->GetSize(), horizontal, Symbol);
                 placed = true;
-
-                cout << "AI placed ship at row " << row + 1 << ", col " 
-                     << col + 1 << endl;
+                this->ships[i]->SetRow(row);
+                this->ships[i]->SetCol(col);
+                this->ships[i]->SetDirection(direction);
+                //cout << "AI placed ship at row " << row + 1 << ", col "//for debbuging
+                    // << col + 1 << endl;
             }
         }
     }
-
+    //grid.printGrid();//debbuging
     cout << "AI placement completed!" << endl;
 }
 
@@ -75,44 +83,52 @@ void AiPlayer::makeMove(Player *opponent)
     if (opponent->GetGrid().getCell(row, col) == '~')
     {
         opponent->GetGrid().markMiss(row, col);
-        cout << "You missed!" << endl;
-        opponent->GetGrid().printGrid();
-        return;
+        cout << "AI You missed!" << endl;
     }
 
-    if (opponent->GetGrid().getCell(row, col) == 'S')
+    else if (opponent->GetGrid().getCell(row, col) == 'S')
     {
         opponent->GetGrid().markHit(row, col);
-        cout << "You hit an enemy ship!" << endl;
+        cout << "Hit!" << endl;
+
         for (int i = 0; i < 5; i++)
         {
-            if ((opponent->GetGrid().getPositions()[i].GetRow() == row) && (opponent->GetGrid().getPositions()[i].GetRow() == col))
+            int shipSize = opponent->getShip(i)->GetSize();
+            int dir = opponent->getShip(i)->GetDirection(); 
+            int shipRow = opponent->getShip(i)->GetRow();
+            int shipCol = opponent->getShip(i)->GetCol();
+
+            bool hit = false;
+
+            if (dir == 1) 
             {
-                char symbol = opponent->GetGrid().getPositions()[i].GetSymbol();
-                if (symbol == 'D')
+                if (row == shipRow && col >= shipCol && col < shipCol + shipSize)
                 {
-                    opponent->getShip(0)->takeHit();
+                    hit = true;
                 }
-                else if (symbol == 'c')
+            }
+            else 
+            {
+                if (col == shipCol && row >= shipRow && row < shipRow + shipSize)
                 {
-                    opponent->getShip(1)->takeHit();
+                    hit = true;
                 }
-                else if (symbol == 's')
-                {
-                    opponent->getShip(2)->takeHit();
-                }
-                else if (symbol == 'B')
-                {
-                    opponent->getShip(3)->takeHit();
-                }
-                else if (symbol == 'C')
-                {
-                    opponent->getShip(4)->takeHit();
-                }
-                opponent->GetGrid().printGrid();
+            }
+
+            if (hit)
+            {
+                opponent->getShip(i)->takeHit();
+                break;
             }
         }
     }
+
+    cout << "opponents ships state:" << endl;
+    cout << "ship 1 hits: " << opponent->getShip(0)->GetHitsTaken() << endl;
+    cout << "ship 2 hits: " << opponent->getShip(1)->GetHitsTaken() << endl;
+    cout << "ship 3 hits: " << opponent->getShip(2)->GetHitsTaken() << endl;
+    cout << "ship 4 hits: " << opponent->getShip(3)->GetHitsTaken() << endl;
+    cout << "ship 5 hits: " << opponent->getShip(4)->GetHitsTaken() << endl;
 }
 
 int AiPlayer::getRandomCoordinate()

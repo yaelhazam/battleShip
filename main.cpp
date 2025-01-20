@@ -7,7 +7,6 @@
 #include "Game.hpp"
 #include "Grid.hpp"
 #include "Ship.hpp"
-#include "ShipPosition.hpp"
 #include "Destroyer.hpp"
 #include "Cruiser.hpp"
 #include "Carrier.hpp"

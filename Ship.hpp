@@ -7,11 +7,20 @@ class Ship
 {
 protected:
     char *name;
-    int size=0;
-    int hitsTaken=0;
+    int size = 0;
+    int hitsTaken = 0;
+    int row = 0;
+    int col = 0;
+    int dir = 0; // 0 for vertical, 1 for horizontal
 
 public:
     Ship(const char *name, int size);
+    void SetDirection(int dir);
+    void SetRow(int row);
+    void SetCol(int col);
+    int GetDirection();
+    int GetRow();
+    int GetCol();
     int GetSize();
     int GetHitsTaken();
     virtual void takeHit();

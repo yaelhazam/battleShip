@@ -58,13 +58,13 @@ bool Grid::inBounds(int row, int col, int shipSize, bool horizontal) const
     }
     return true;
 }
-void Grid::placeShip(int row, int col, int shipSize, bool horizontal, char symbol)
+void Grid::placeShip(int &row, int &col, int shipSize, bool horizontal, char symbol)
 {
     while (isAdjacentOccupied(row, col, shipSize, horizontal) ||
            !inBounds(row, col, shipSize, horizontal) ||
            isTillOccupied(row, col))
     {
-        cout << "Invalid placement, please try again (row and column between 1-10):" << endl;
+        cout << "Invalid placement, there is already a ship here or not in bounds or too close to another ship. Please try again:" << endl;
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
         while (!(cin >> row >> col) || row < 1 || row > 10 || col < 1 || col > 10)
@@ -73,7 +73,7 @@ void Grid::placeShip(int row, int col, int shipSize, bool horizontal, char symbo
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
             cout << "Invalid input. Please enter row and column between 1-10:" << endl;
         }
-
+       
         row--;
         col--;
     }
@@ -90,27 +90,8 @@ void Grid::placeShip(int row, int col, int shipSize, bool horizontal, char symbo
         }
     }
 
-    for (int i = 0; i < 5; i++)
-    {
-        if (!ships[i].GetIsInit())
-        {
-            ships[i].SetCol(col);
-            ships[i].SetRow(row);
-            ships[i].SetHorizontal(horizontal);
-            ships[i].SetSymbol(symbol);
-            ships[i].SetInit();
-            if(i==4){
-                cout<<"All ships have been placed!"<<endl;
-            }
-            break;
-        }
-    }
 }
 
-ShipPosition *Grid::getPositions()
-{
-    return ships;
-}
 void Grid::markHit(int row, int col)
 {
     cells[row][col] = 'H';

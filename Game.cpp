@@ -32,13 +32,19 @@ void Game::setup()
 }
 void Game::start()
 {
+    int count = 0;
     while (!isGameOver())
     {
+        count++;
         player1->makeMove(player2);
         if (isGameOver())
             break;
+        cout << "human player grid after turn - " << count << endl;
+        player1->displayGrid();
 
         player2->makeMove(player1);
+        cout << "ai player grid after turn - " << count << endl;
+        player2->displayGrid();
     }
 
     if (player1->allShipsSunk())
